@@ -17,32 +17,57 @@ class LighthouseAudit extends Adviser.Rule {
       this.context.options.scores = {};
     }
     const defaults = {
-      performance: 80,
-      accessibility: 80,
-      bestPractices: 80,
-      seo: 80,
+      performance: 0.8,
+      accessibility: 0.8,
+      'best-practices': 0.8,
+      seo: 0.8,
       pwa: 0
     };
-    this.context.options.scores = Object.keys(defaults).map(key => {
-      return !isNaN(this.context.options.scores[key]) ? this.context.options.scores[key] : defaults[key];
+    Object.keys(defaults).forEach(key => {
+      this.context.options.scores[key] = !isNaN(this.context.options.scores[key])
+        ? this.context.options.scores[key]
+        : defaults[key];
     });
   }
 
   run(sandbox) {
     return new Promise((resolve, reject) => {
-      this.runLighthouse().then(results => {});
+      this.runLighthouse(this.context.options.url)
+        .then(results => {
+          if (!results) {
+            reject(new Error('No results returned.'));
+          }
+          const scores = Object.keys(results.categories)
+            .map(key => {
+              return results.categories[key].score < this.context.options.scores[key]
+                ? `${key}: score ${results.categories[key].score} is below required ${this.context.options.scores[key]}`
+                : null;
+            })
+            .filter(Boolean);
+          if (scores.length > 0) {
+            sandbox.report({
+              message: scores.join('\n')
+            });
+          }
+          resolve();
+        })
+        .catch(error => {
+          reject(error);
+        });
     });
   }
 
   runLighthouse(url, opts = null) {
     if (!opts) {
       opts = {
-        chromeFlags: ['--show-paint-rects']
+        chromeFlags: ['--show-paint-rects', '--no-sandbox']
       };
     }
     return chromeLauncher.launch({ chromeFlags: opts.chromeFlags }).then(chrome => {
       opts.port = chrome.port;
-      return lighthouse(url, opts).then(results => chrome.kill().then(() => results.lhr));
+      return lighthouse(url, opts).then(results => {
+        return chrome.kill().then(() => results.lhr);
+      });
     });
   }
 }

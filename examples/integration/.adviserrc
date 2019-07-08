@@ -2,11 +2,11 @@
   "plugins": ['lighthouse],
   "rules": {
     "lighthouse/lighthouse": {"url": "https://google.com", "scores": {
-      "performance": 90,
-      "accessibility" 90,
-      "seo": 90,
-      "bestPractices:" 90,
-      "pwa" 50
+      "performance": 0.90,
+      "accessibility" 0.90,
+      "seo": 0.90,
+      "best-practices:" 0.90,
+      "pwa" 0.50
     }} 
   }
 }

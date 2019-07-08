@@ -4,7 +4,7 @@
   "description": "[Description]",
   "main": "src/index.js",
   "scripts": {
-    "test": "jest --watch",
+    "test": "jest --watch --verbose",
     "test-ci": "jest --ci && npm run linters && npm run size && npm run audit",
     "size": "bundlesize",
     "linters": "eslint './src/**/*.js'",
@@ -72,6 +72,7 @@
     }
   },
   "dependencies": {
+    "adviser": "^0.2.0",
     "chrome-launcher": "^0.10.7",
     "is-url": "^1.2.4",
     "lighthouse": "^5.1.0",

@@ -1,0 +1,12 @@
+{
+  "plugins": ['lighthouse],
+  "rules": {
+    "lighthouse/lighthouse": {"url": "https://google.com", "scores": {
+      "performance": 90,
+      "accessibility" 90,
+      "seo": 90,
+      "bestPractices:" 90,
+      "pwa" 50
+    }} 
+  }
+}

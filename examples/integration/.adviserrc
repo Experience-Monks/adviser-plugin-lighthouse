@@ -1,5 +1,5 @@
 {
-  "plugins": ['lighthouse],
+  "plugins": ["lighthouse"],
   "rules": {
     "lighthouse/lighthouse": {"url": "https://google.com", "scores": {
       "performance": 0.90,

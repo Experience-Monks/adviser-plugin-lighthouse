@@ -1,48 +1,86 @@
-# [Library Name]
+# adviser-plugin-lighthouse
 
-[Badges]
-
-[Description]
+Plugin for adviser to run lighthouse audits on a given URL
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Release](#release)
 - [Tests](#tests)
-- [API](#api)
 - [Contributing](#contributing)
 - [Support](#support)
-- [Related](#related)
 - [License](#license)
 
 ## Installation
 
+You'll first need to install [Adviser](https://www.npmjs.com/package/adviser):
+
 ```
-npm install [library]
+$ npm i adviser --save-dev
 ```
+
+Next, install `adviser-plugin-lighthouse`:
+
+```
+$ npm install adviser-plugin-lighthouse --save-dev
+```
+
+**Note:** If you installed Adviser globally (using the `-g` flag) then you must also install `adviser-plugin-lighthouse` globally.
 
 ## Usage
 
-[How to use it?, examples]
+Add `lighthouse` to the plugins section of your `.adviserrc` configuration file. You can omit the `adviser-plugin-` prefix:
 
-## Release
+```json
+{
+  "plugins": ["lighthouse"]
+}
+```
 
-To releasing new versions we are using [standard-version](https://github.com/conventional-changelog/standard-version).
+Then configure the rules you want to use under the rules section.
 
-Steps:
+```json
+{
+  "rules": {
+    "lighthouse/lighthouse": { "url": "https://google.com" }
+  }
+}
+```
 
-1. When PRs/commits land to your master branch, select the Squash and Merge option.
-2. Add a title and body that follows the [Conventional Commits Specification](https://www.conventionalcommits.org).
-3. Run `$ git checkout master; git pull origin master`
-4. Run `$ npm run release`
-5. Run `$ git push --follow-tags origin master && npm publish`
+If you don't have a `.adviserrc` you can create one running `$ adviser --init`
+
+### Full example
+
+```
+{
+  "plugins": ["lighthouse"],
+  "rules": {
+    "lighthouse/lighthouse": {"url": "https://google.com", "scores": {
+      "performance": 0.90,
+      "accessibility" 0.90,
+      "seo": 0.90,
+      "best-practices:" 0.90,
+      "pwa" 0.50
+    }} 
+  }
+}
+```
 
 ## Tests
 
-[What type of tests are included and how to run it]
+If you would like to contribute and later on test your changes there are a couple ways explained below.
 
-## API
+### Unit code
 
-[Document what the public functions do, etc]
+The package (`adviser-plugin-lighthouse`) is setup to run tests under the folder `__tests__` with Jest. Save your tests there and they will run before each code push and by travis once the PR is created.
+
+### Integration tests
+
+To run your rules with `adviser`, we recommend you to create an empty folder (We have one under `./examples/integration`) with:
+
+- An example package.json
+- An `adviser` configuration file. You can grab the example in this README or generate one using `$ adviser --init` (adviser must be installed globally or using `npx`)
+- Link this repo to the example project.
+  - Run `$ npm link` in the `adviser-plugin-lighthouse` root
+  - Run `$ npm link adviser-plugin-lighthouse` in the example project root
 
 ## Contributing
 
@@ -51,13 +89,7 @@ pull requests.
 
 ## Support
 
-Where is this library supported?
-
-## Related
-
-- [name](link) - Description
-- [name](link) - Description
-- [name](link) - Description
+- [Lighthouse](docs/rules/lighthouse.md) - Rule for running general lighthouse audits
 
 ## License
 

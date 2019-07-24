@@ -60,7 +60,7 @@ class LighthouseAudit extends Adviser.Rule {
   runLighthouse(url, opts = null) {
     if (!opts) {
       opts = {
-        chromeFlags: ['--show-paint-rects', '--no-sandbox']
+        chromeFlags: ['--show-paint-rects']
       };
     }
     return chromeLauncher.launch({ chromeFlags: opts.chromeFlags }).then(chrome => {

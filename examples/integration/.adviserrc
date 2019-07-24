@@ -1,12 +1,24 @@
 {
-  "plugins": ["lighthouse"],
+  "plugins": ["lighthouse", "dependencies"],
   "rules": {
-    "lighthouse/lighthouse": {"url": "https://google.com", "scores": {
-      "performance": 0.90,
-      "accessibility" 0.90,
-      "seo": 0.90,
-      "best-practices:" 0.90,
-      "pwa" 0.50
-    }} 
+    "lighthouse/lighthouse": [
+      "error",
+      {
+        "url": "https://google.com",
+        "scores": {
+          "performance": 0.9,
+          "accessibility": 0.9,
+          "seo": 0.9,
+          "best-practices": 0.9,
+          "pwa": 0.5
+        }
+      }
+    ],
+    "dependencies/licenses-whitelist": [
+      "warn",
+      {
+        "whitelist": ["ARS"]
+      }
+    ]
   }
 }

@@ -37,18 +37,17 @@ class LighthouseAudit extends Adviser.Rule {
           if (!results) {
             reject(new Error('No results returned.'));
           }
-          const scores = Object.keys(results.categories)
-            .map(key => {
-              return results.categories[key].score < this.context.options.scores[key]
-                ? `${key}: score ${results.categories[key].score} is below required ${this.context.options.scores[key]}`
-                : null;
-            })
-            .filter(Boolean);
-          if (scores.length > 0) {
-            sandbox.report({
-              message: scores.join('\n')
-            });
-          }
+
+          Object.keys(results.categories).forEach(key => {
+            if (results.categories[key].score < this.context.options.scores[key]) {
+              sandbox.report({
+                message: `${key}: score ${results.categories[key].score} is below required ${
+                  this.context.options.scores[key]
+                }`
+              });
+            }
+          });
+
           resolve();
         })
         .catch(error => {

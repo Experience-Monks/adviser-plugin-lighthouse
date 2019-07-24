@@ -1,5 +1,5 @@
 {
-  "plugins": ["lighthouse", "dependencies"],
+  "plugins": ["lighthouse"],
   "rules": {
     "lighthouse/lighthouse": [
       "error",
@@ -12,12 +12,6 @@
           "best-practices": 0.9,
           "pwa": 0.5
         }
-      }
-    ],
-    "dependencies/licenses-whitelist": [
-      "warn",
-      {
-        "whitelist": ["ARS"]
       }
     ]
   }

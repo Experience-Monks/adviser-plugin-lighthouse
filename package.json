@@ -1,6 +1,6 @@
 {
   "name": "adviser-plugin-lighthouse",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Plugin for adviser to run lighthouse audits on a given URL",
   "main": "src/index.js",
   "scripts": {
@@ -72,10 +72,9 @@
     }
   },
   "dependencies": {
-    "adviser": "^0.2.0",
+    "adviser": "^0.5.0",
     "chrome-launcher": "^0.10.7",
     "is-url": "^1.2.4",
-    "lighthouse": "^5.1.0",
-    "requireindex": "^1.2.0"
+    "lighthouse": "^5.1.0"
   }
 }

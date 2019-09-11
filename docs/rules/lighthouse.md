@@ -7,16 +7,22 @@ Use the adviser argument `--verbose` for extra information to see which specific
 ## Syntax
 
 ```
-"lighthouse/lighthouse": {"url": "https://google.com", "scores": {
-  "performance": 0.90,
-  "accessibility" 0.90,
-  "seo": 0.90,
-  "best-practices:" 0.90,
-  "pwa" 0.50
-}} 
+{
+  "plugins": ["lighthouse"],
+  "lighthouse": {
+    "url": "https://google.com",
+  },
+  "rules": {
+    "lighthouse/performance": ["error", {"score": 0.9}],
+    "lighthouse/accessibility": ["error", {"score": 0.9}],
+    "lighthouse/seo": ["error", {"score": 0.9}],
+    "lighthouse/best-practices": ["error", {"score": 0.9}],
+    "lighthouse/pwa": ["error", {"score": 0.5}],
+  }
+}
 ```
 
-The rule `lighthouse` may receive two arguments: `url` and `scores`.
+The rule `lighthouse` requires a `url` passed in as a setting, and a `score` passed in for each lighthouse category.
 
 ### url
 
@@ -24,28 +30,18 @@ URL formatted string, this can be a live url or a local url.
 
 Required
 
-### scores
+### score
 
-Object with string / float pairs. Each key corresponds to the lighthouse audit section. The rule will ensure the section score meets or surpasses the provided float value or otherwise throw and error.
+float value. Each key (lighthoust/*) corresponds to the lighthouse audit section. The rule will ensure the section score meets or surpasses the provided float value or otherwise throw and error.
 
 Default Value:
 ```
-{
-  "performance": 0.8,
-  "accessibility": 0.8,
-  "best-practices": 0.8,
-  "seo": 0.8,
-  "pwa": 0
-}
+0.8
 ```
 
 Example:
 ```
 {
-  "performance": 0.90,
-  "accessibility" 0.90,
-  "seo": 0.90,
-  "best-practices:" 0.90,
-  "pwa" 0.50
+  "lighthouse/performance": ["error", {"score": 0.9}]
 }
 ```

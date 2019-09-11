@@ -1,7 +1,7 @@
 'use strict';
 
 const noop = () => {};
-const Lighthouse = require('../src/rules/lighthouse');
+const Lighthouse = require('../src/');
 
 describe('Run lighthouse audit', () => {
   test('Check lighthouse audit runs', () => {

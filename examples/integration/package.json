@@ -8,6 +8,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "adviser": "^0.2.0"
+    "adviser": "^0.5.0",
+    "adviser-plugin-lighthouse": "file:../.."
   }
 }

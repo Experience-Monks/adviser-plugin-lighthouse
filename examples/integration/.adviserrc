@@ -1,18 +1,13 @@
 {
   "plugins": ["lighthouse"],
+  "lighthouse": {
+    "url": "https://google.com",
+  },
   "rules": {
-    "lighthouse/lighthouse": [
-      "error",
-      {
-        "url": "https://google.com",
-        "scores": {
-          "performance": 0.9,
-          "accessibility": 0.9,
-          "seo": 0.9,
-          "best-practices": 0.9,
-          "pwa": 0.5
-        }
-      }
-    ]
+    "lighthouse/performance": ["error", {"score": 0.9}],
+    "lighthouse/accessibility": ["error", {"score": 0.9}],
+    "lighthouse/seo": ["error", {"score": 0.9}],
+    "lighthouse/best-practices": ["error", {"score": 0.9}],
+    "lighthouse/pwa": ["error", {"score": 0.5}]
   }
 }

@@ -1,10 +1,9 @@
 {
   "plugins": ["lighthouse"],
   "rules": {
-    "lighthouse/lighthouse": [
+    "lighthouse/global-scores": [
       "error",
       {
-        "url": "https://google.com",
         "scores": {
           "performance": 0.9,
           "accessibility": 0.9,
@@ -14,5 +13,12 @@
         }
       }
     ]
+  },
+  "settings": {
+    "lighthouse": {
+      "url": "https://google.com",
+      "configPath": "",
+      "options": {}
+    }
   }
 }

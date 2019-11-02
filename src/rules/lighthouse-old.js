@@ -2,8 +2,8 @@
 
 const Adviser = require('adviser');
 const chromeLauncher = require('chrome-launcher');
-const isURL = require('is-url');
 const lighthouse = require('lighthouse');
+const isURL = require('is-url');
 
 class LighthouseAudit extends Adviser.Rule {
   constructor(context) {
@@ -41,9 +41,7 @@ class LighthouseAudit extends Adviser.Rule {
           Object.keys(results.categories).forEach(key => {
             if (results.categories[key].score < this.context.options.scores[key]) {
               sandbox.report({
-                message: `${key}: score ${results.categories[key].score} is below required ${
-                  this.context.options.scores[key]
-                }`
+                message: `${key}: score ${results.categories[key].score} is below required ${this.context.options.scores[key]}`
               });
             }
           });

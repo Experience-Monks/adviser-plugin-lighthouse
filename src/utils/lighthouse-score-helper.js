@@ -33,7 +33,7 @@ class LighthouseScoreHelper {
           verboseOutput += `  - ${audit.id}: ${audit.expectedScore} (expected)  |  ${audit.score} (current)`;
           verboseOutput += index <= failedAudits.length - 2 ? '\n' : '';
         });
-        report['verbose'] = `Failed audits:${verboseOutput}`;
+        report.verbose = `Failed audits:${verboseOutput}`;
 
         sandbox.report(report);
       }

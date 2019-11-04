@@ -24,13 +24,6 @@
           }
         ]
       }
-    ],
-    "lighthouse/budget": [
-      "error",
-      {
-        "configPath": "budget.json",
-        "inline": []
-      }
     ]
   },
   "settings": {

@@ -1,24 +1,65 @@
 {
   "plugins": ["lighthouse"],
   "rules": {
-    "lighthouse/global-scores": [
+    "lighthouse/performance": [
       "error",
       {
-        "scores": {
-          "performance": 0.9,
-          "accessibility": 0.9,
-          "seo": 0.9,
-          "best-practices": 0.9,
-          "pwa": 0.5
+        "score": 0.95,
+        "audits": {
+          "html-has-lang": 1,
+          "input-image-alt": 1,
+          "link-name": 1
+        }
+      }
+    ],
+    "lighthouse/accessibility": [
+      "error",
+      {
+        "score": 1,
+        "audits": {
+          "aria-hidden-focus": 1,
+          "aria-input-field-name": 1,
+          "aria-valid-attr": 1
+        }
+      }
+    ],
+    "lighthouse/best-practices": [
+      "error",
+      {
+        "score": 0.95,
+        "audits": {
+          "is-on-https": 1,
+          "doctype": 1,
+          "deprecations": 1
+        }
+      }
+    ],
+    "lighthouse/seo": [
+      "error",
+      {
+        "score": 1,
+        "audits": {
+          "viewport": 1,
+          "http-status-code": 1,
+          "canonical": 1
+        }
+      }
+    ],
+    "lighthouse/pwa": [
+      "error",
+      {
+        "score": 0.8,
+        "audits": {
+          "service-worker": 1,
+          "apple-touch-icon": 1,
+          "works-offline": 1
         }
       }
     ]
   },
   "settings": {
     "lighthouse": {
-      "url": "https://google.com",
-      "configPath": "",
-      "options": {}
+      "url": "https://google.com"
     }
   }
 }

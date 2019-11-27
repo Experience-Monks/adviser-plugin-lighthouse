@@ -1,9 +1,24 @@
-class LighthouseScoreHelper {
-  constructor(category, lighthouseResults, expectedScore, expectedAudits) {
+'use strict';
+
+const Adviser = require('adviser');
+const isNumber = require('is-number');
+
+class BaseRule extends Adviser.Rule {
+  constructor(context, category) {
+    super(context);
     this.category = category;
-    this.lighthouseResults = lighthouseResults;
-    this.expectedScore = expectedScore;
-    this.expectedAudits = expectedAudits;
+
+    if (!this.context.options.hasOwnProperty('score') && !this.context.options.audits) {
+      throw new Error(`Either score or audits properties is required.`);
+    }
+
+    if (this.context.options.hasOwnProperty('score') && !isNumber(this.context.options.score)) {
+      throw new Error(`Score must be a number.`);
+    }
+
+    this.score = this.context.options.score;
+    this.audits = this.context.options.audits;
+    this.lighthouseResults = context.shared;
   }
 
   run(sandbox) {
@@ -11,7 +26,7 @@ class LighthouseScoreHelper {
 
     if (
       this.expectedScore !== undefined &&
-      this.isLowerCategoryScore(categories[this.category].score, this.expectedScore)
+      categories[this.category].score < this.expectedScore
     ) {
       sandbox.report({
         message: `${this.category} score ${categories[this.category].score} is below required ${this.expectedScore}`
@@ -40,14 +55,8 @@ class LighthouseScoreHelper {
     }
   }
 
-  isLowerCategoryScore(score, expectedScore) {
-    return score < expectedScore;
-  }
-
   getFailedAudits(lighthouseAudits, configAudits) {
-    // Not checking if the audit belongs to the category to avoid O(n^2) performance hit
-    const failedAudits = [];
-    Object.keys(configAudits).forEach(audit => {
+    return Object.keys(configAudits).map(audit => {
       if (
         lighthouseAudits[audit] &&
         lighthouseAudits[audit].score !== null &&
@@ -59,9 +68,8 @@ class LighthouseScoreHelper {
           score: lighthouseAudits[audit].score
         });
       }
-    });
-    return failedAudits;
+    }).filter(Boolean);
   }
 }
 
-module.exports = LighthouseScoreHelper;
+module.exports = BaseRule;

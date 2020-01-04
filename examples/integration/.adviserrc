@@ -1,5 +1,7 @@
 {
-  "plugins": ["lighthouse"],
+  "plugins": [
+    "lighthouse"
+  ],
   "rules": {
     "lighthouse/scores": [
       "error",
@@ -22,7 +24,8 @@
   },
   "settings": {
     "lighthouse": {
-      "url": "https://google.com"
+      "url": "https://google.com",
+      "configPath": "dev.lh.config.json"
     }
   }
 }

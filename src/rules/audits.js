@@ -1,7 +1,6 @@
 'use strict';
 
 const Adviser = require('adviser');
-const isNumber = require('is-number');
 
 class Audits extends Adviser.Rule {
   constructor(context) {
@@ -15,12 +14,11 @@ class Audits extends Adviser.Rule {
 
   run(sandbox) {
     const failedAudits = this.getFailedAudits(this.lighthouseResults.audits, this.audits);
+    const unknownAudits = this.getUnknownAudits(this.lighthouseResults.audits, this.audits);
 
     if (failedAudits.length > 0) {
       const report = {
-        message: `${failedAudits.length} lighthouse audit${
-          failedAudits.length > 1 ? 's' : ''
-        } failed`
+        message: `${failedAudits.length} lighthouse audit${failedAudits.length > 1 ? 's' : ''} failed`
       };
 
       let verboseOutput = '\n';
@@ -30,40 +28,40 @@ class Audits extends Adviser.Rule {
       });
       report.verbose = `Failed audits:${verboseOutput}`;
 
-      sandbox.report(report);
-    }
+      if (unknownAudits.length > 0) {
+        report.verbose += `\n\n  Unknown Audits: \n  - ${unknownAudits.join('\n  - ')}`;
+      }
 
-    const unknownAudits = this.getUnknownAudits(this.lighthouseResults.audits, this.audits);
-    if (unknownAudits.length > 0) {
-      sandbox.report({
-        message: `Unknown Audits: ${unknownAudits.length}`,
-        verbose: `Unknown Audits: \n  - ${unknownAudits.join('\n  - ')}`
-      });
+      sandbox.report(report);
     }
   }
 
   getFailedAudits(lighthouseAudits, configAudits) {
-    return Object.keys(configAudits).map(audit => {
-      if (
-        lighthouseAudits[audit] &&
-        lighthouseAudits[audit].score !== null &&
-        lighthouseAudits[audit].score < configAudits[audit]
-      ) {
-        return {
-          id: audit,
-          expected: configAudits[audit],
-          score: lighthouseAudits[audit].score
-        };
-      }
-    }).filter(Boolean);
+    return Object.keys(configAudits)
+      .map(audit => {
+        if (
+          lighthouseAudits[audit] &&
+          lighthouseAudits[audit].score !== null &&
+          lighthouseAudits[audit].score < configAudits[audit]
+        ) {
+          return {
+            id: audit,
+            expected: configAudits[audit],
+            score: lighthouseAudits[audit].score
+          };
+        }
+      })
+      .filter(Boolean);
   }
 
   getUnknownAudits(lighthouseAudits, configAudits) {
-    return Object.keys(configAudits).map(audit => {
-      if (!lighthouseAudits.hasOwnProperty(audit)) {
-        return audit;
-      }
-    }).filter(Boolean);
+    return Object.keys(configAudits)
+      .map(audit => {
+        if (!Object.prototype.hasOwnProperty.call(lighthouseAudits, 'audit')) {
+          return audit;
+        }
+      })
+      .filter(Boolean);
   }
 }
 

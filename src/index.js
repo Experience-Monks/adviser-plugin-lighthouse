@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs');
 
 const requireIndex = require('requireindex');
 const chromeLauncher = require('chrome-launcher');
@@ -12,7 +13,7 @@ class LighthousePlugin extends Adviser.Plugin {
   constructor(settings) {
     super(settings);
 
-    if (!settings.hasOwnProperty('url') || !isURL(settings.url)) {
+    if (!Object.prototype.hasOwnProperty.call(settings, 'url') || !isURL(settings.url)) {
       throw new Error(`No valid url provided.`);
     }
 
@@ -26,10 +27,16 @@ class LighthousePlugin extends Adviser.Plugin {
     let config = null;
 
     if (this.configPath) {
+      const fullConfigPath = path.join(context.filesystem.dirname, this.configPath);
+
+      if (!fs.existsSync(fullConfigPath)) {
+        throw new Error(`Config file was not found in ${fullConfigPath}`);
+      }
+
       try {
         config = require(path.join(context.filesystem.dirname, this.configPath));
       } catch (error) {
-        throw new Error(`Invalid config file path, ${error}`);
+        throw new Error(`Error found retrieven lighthouse config file ${fullConfigPath}`);
       }
     }
 

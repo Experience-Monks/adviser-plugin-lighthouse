@@ -20,7 +20,7 @@ class Scores extends Adviser.Rule {
   run(sandbox) {
     const categories = this.lighthouseResults.categories;
     Object.keys(this.scores).forEach(category => {
-      if (categories[category].score < this.scores[category]) {
+      if (categories[category] && categories[category].score < this.scores[category]) {
         sandbox.report({
           message: `${category} score ${categories[category].score} is below required ${this.scores[category]}`
         });

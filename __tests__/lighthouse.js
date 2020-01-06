@@ -1,17 +1,12 @@
 'use strict';
 
-// const noop = () => {};
-// const Lighthouse = require('../src/rules/lighthouse');
+const LighthousePlugin = require('../src');
 
-// describe.skip('Run lighthouse audit', () => {
-//   test('Check lighthouse audit runs', () => {
-//     const lighthouse = new Lighthouse({ options: { url: 'https://google.com/' } });
-//     return lighthouse.run({ report: noop }).then(noop, error => {
-//       throw error;
-//     });
-//   }, 30000);
-//   test('Lighthouse fails with no url provided', () => {
-//     expect(() => new Lighthouse({ options: {} })).toThrow(`No valid url provided.`);
-//   });
-// });
-
+describe('Run lighthouse audit', () => {
+  test('Plugin required parameters', () => {
+    expect(() => {
+      const lighthousePlugin = new LighthousePlugin({});
+      lighthousePlugin.preRun();
+    }).toThrowError('No valid url');
+  });
+});

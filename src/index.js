@@ -36,7 +36,7 @@ class LighthousePlugin extends Adviser.Plugin {
       try {
         config = require(path.join(context.filesystem.dirname, this.configPath));
       } catch (error) {
-        throw new Error(`Error found retrieven lighthouse config file ${fullConfigPath}`);
+        throw new Error(`Error found retrieving lighthouse config file ${fullConfigPath}`);
       }
     }
 

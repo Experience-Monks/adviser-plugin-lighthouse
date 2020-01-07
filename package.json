@@ -1,6 +1,6 @@
 {
   "name": "adviser-plugin-lighthouse",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Plugin for adviser to run lighthouse audits on a given URL",
   "main": "src/index.js",
   "scripts": {

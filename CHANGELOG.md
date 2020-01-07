@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://github.com/Jam3/adviser-plugin-lighthouse/compare/v1.0.0...v1.0.1) (2020-01-07)
+
+
+### Bug Fixes
+
+* unknown audits was outputing wrong values ([e975031](https://github.com/Jam3/adviser-plugin-lighthouse/commit/e97503189ee9478ca9ba9e2fe2db3005929d0d19))
+
 ## 1.0.0 (2020-01-07)
 
 

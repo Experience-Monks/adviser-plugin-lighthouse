@@ -1,6 +1,6 @@
 # adviser-plugin-lighthouse
 
-Plugin for adviser to run lighthouse audits on a given URL
+Plugin for adviser to run lighthouse audits and score checking on a given URL
 
 - [Installation](#installation)
 - [Usage](#usage)
@@ -40,7 +40,16 @@ Then configure the rules you want to use under the rules section.
 ```json
 {
   "rules": {
-    "lighthouse/lighthouse": { "url": "https://google.com" }
+    "lighthouse/scores": [
+      "error",
+      {
+        "best-practices": 1,
+        "pwa": 0.8,
+        "seo": 1,
+        "accessibility": 1,
+        "performance": 0.9
+      }
+    ],
   }
 }
 ```
@@ -53,13 +62,23 @@ If you don't have a `.adviserrc` you can create one running `$ adviser --init`
 {
   "plugins": ["lighthouse"],
   "rules": {
-    "lighthouse/lighthouse": {"url": "https://google.com", "scores": {
-      "performance": 0.90,
-      "accessibility" 0.90,
-      "seo": 0.90,
-      "best-practices:" 0.90,
-      "pwa" 0.50
-    }} 
+    "lighthouse/scores": [
+      "error",
+      {
+        "best-practices": 1,
+        "pwa": 1,
+        "seo": 1,
+        "accessibility": 1,
+        "performance": 1
+      }
+    ],
+    "lighthouse/audits": [
+      "error",
+      {
+        "mainthread-work-breakdown": 1,
+        "not-a-valid-audit": 1
+      }
+    ]
   }
 }
 ```
@@ -87,9 +106,10 @@ To run your rules with `adviser`, we recommend you to create an empty folder (We
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting
 pull requests.
 
-## Support
+## Supported Rules
 
-- [Lighthouse](docs/rules/lighthouse.md) - Rule for running general lighthouse audits
+- [scores](docs/rules/scores.md) - Inspect the global lighthouse scores
+- [audits](docs/rules/audits.md) - Inspect the individual lighthouse audits result
 
 ## License
 

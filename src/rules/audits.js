@@ -57,7 +57,7 @@ class Audits extends Adviser.Rule {
   getUnknownAudits(lighthouseAudits, configAudits) {
     return Object.keys(configAudits)
       .map(audit => {
-        if (!Object.prototype.hasOwnProperty.call(lighthouseAudits, 'audit')) {
+        if (!Object.prototype.hasOwnProperty.call(lighthouseAudits, audit)) {
           return audit;
         }
       })

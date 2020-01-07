@@ -1,18 +1,31 @@
 {
-  "plugins": ["lighthouse"],
+  "plugins": [
+    "lighthouse"
+  ],
   "rules": {
-    "lighthouse/lighthouse": [
+    "lighthouse/scores": [
       "error",
       {
-        "url": "https://google.com",
-        "scores": {
-          "performance": 0.9,
-          "accessibility": 0.9,
-          "seo": 0.9,
-          "best-practices": 0.9,
-          "pwa": 0.5
-        }
+        "best-practices": 1,
+        "pwa": 1,
+        "seo": 1,
+        "accessibility": 1,
+        "performance": 1
+      }
+    ],
+    "lighthouse/audits": [
+      "error",
+      {
+        "mainthread-work-breakdown": 1,
+        "image-aspect-ratio": 1,
+        "not-a-valid-audit": 1
       }
     ]
+  },
+  "settings": {
+    "lighthouse": {
+      "url": "https://google.com",
+      "configPath": "dev.lh.config.json"
+    }
   }
 }

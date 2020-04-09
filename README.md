@@ -35,6 +35,21 @@ Add `lighthouse` to the plugins section of your `.adviserrc` configuration file.
 }
 ```
 
+Specify the URL where lighthouse will run in the global settings. You can also use a configuration file and pass lighthouse options.
+
+```json
+  "settings": {
+    "lighthouse": {
+      "url": "http://localhost:3000",
+      "configPath": "dev.lighthouse.config.json",
+      "options": {
+        "throttlingMethod": "provided",
+        "emulatedFormFactor": "none"
+      }
+    }
+  }
+```
+
 Then configure the rules you want to use under the rules section.
 
 ```json

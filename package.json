@@ -78,5 +78,13 @@
     "is-url": "^1.2.4",
     "lighthouse": "^5.6.0",
     "requireindex": "^1.2.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jam3/adviser-plugin-lighthouse.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Jam3/adviser-plugin-lighthouse/issues"
+  },
+  "homepage": "https://github.com/Jam3/adviser-plugin-lighthouse#readme"
 }
